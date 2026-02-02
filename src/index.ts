@@ -12,17 +12,19 @@ const server = new McpServer({
 
 // ============ ASSET TOOLS ============
 
-server.tool(
+server.registerTool(
   "list_assets",
-  "List all translatable assets in the project. Optionally filter by tags.",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    filter: z
-      .string()
-      .optional()
-      .describe(
-        "Filter by comma-separated tag names. Use * to match any tag, prefix with ! to negate"
-      ),
+    description: "List all translatable assets in the project. Optionally filter by tags.",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      filter: z
+        .string()
+        .optional()
+        .describe(
+          "Filter by comma-separated tag names. Use * to match any tag, prefix with ! to negate"
+        ),
+    },
   },
   async ({ apiKey, filter }) => {
     const client = new LocoClient(apiKey);
@@ -33,12 +35,14 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "get_asset",
-  "Get a single asset by its ID",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    assetId: z.string().describe("The unique asset identifier"),
+    description: "Get a single asset by its ID",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      assetId: z.string().describe("The unique asset identifier"),
+    },
   },
   async ({ apiKey, assetId }) => {
     const client = new LocoClient(apiKey);
@@ -49,54 +53,50 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "create_asset",
-  "Create a new translatable asset in the project",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    id: z
-      .string()
-      .optional()
-      .describe("Unique asset identifier (auto-generated if omitted)"),
-    text: z
-      .string()
-      .optional()
-      .describe("Initial source language translation (required if id is empty)"),
-    type: z
-      .enum(["text", "html", "xml"])
-      .optional()
-      .describe("Content type: text, html, or xml (default: text)"),
-    context: z.string().optional().describe("Contextual information for translators"),
-    notes: z.string().optional().describe("Notes/guidance for translators"),
+    description: "Create a new translatable asset in the project",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      id: z
+        .string()
+        .optional()
+        .describe("Unique asset identifier (auto-generated if omitted)"),
+      text: z
+        .string()
+        .optional()
+        .describe("Initial source language translation (required if id is empty)"),
+      context: z.string().optional().describe("Contextual information for translators"),
+      notes: z.string().optional().describe("Notes/guidance for translators"),
+    },
   },
-  async ({ apiKey, id, text, type, context, notes }) => {
+  async ({ apiKey, id, text, context, notes }) => {
     const client = new LocoClient(apiKey);
-    const result = await client.createAsset({ id, text, type, context, notes });
+    const result = await client.createAsset({ id, text, type: 'text', context, notes });
     return {
       content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
     };
   }
 );
 
-server.tool(
+server.registerTool(
   "update_asset",
-  "Update an existing asset's properties (not tags or translations)",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    assetId: z.string().describe("The asset identifier to update"),
-    newId: z.string().optional().describe("New unique identifier for the asset"),
-    type: z
-      .enum(["text", "html", "xml"])
-      .optional()
-      .describe("Content type: text, html, or xml"),
-    context: z.string().optional().describe("Contextual information for translators"),
-    notes: z.string().optional().describe("Notes/guidance for translators"),
+    description: "Update an existing asset's properties (not tags or translations)",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      assetId: z.string().describe("The asset identifier to update"),
+      newId: z.string().optional().describe("New unique identifier for the asset"),
+      context: z.string().optional().describe("Contextual information for translators"),
+      notes: z.string().optional().describe("Notes/guidance for translators"),
+    },
   },
-  async ({ apiKey, assetId, newId, type, context, notes }) => {
+  async ({ apiKey, assetId, newId, context, notes }) => {
     const client = new LocoClient(apiKey);
     const result = await client.updateAsset(assetId, {
       id: newId,
-      type,
+      type: 'text',
       context,
       notes,
     });
@@ -106,12 +106,14 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "delete_asset",
-  "Permanently delete an asset from the project",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    assetId: z.string().describe("The asset identifier to delete"),
+    description: "Permanently delete an asset from the project",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      assetId: z.string().describe("The asset identifier to delete"),
+    },
   },
   async ({ apiKey, assetId }) => {
     const client = new LocoClient(apiKey);
@@ -124,12 +126,14 @@ server.tool(
 
 // ============ TRANSLATION TOOLS ============
 
-server.tool(
+server.registerTool(
   "get_translations",
-  "Get all translations for an asset across all locales",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    assetId: z.string().describe("The asset identifier"),
+    description: "Get all translations for an asset across all locales",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      assetId: z.string().describe("The asset identifier"),
+    },
   },
   async ({ apiKey, assetId }) => {
     const client = new LocoClient(apiKey);
@@ -140,13 +144,15 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "get_translation",
-  "Get a single translation for an asset in a specific locale",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    assetId: z.string().describe("The asset identifier"),
-    locale: z.string().describe("Locale code (e.g., en, fr, de, en_US)"),
+    description: "Get a single translation for an asset in a specific locale",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      assetId: z.string().describe("The asset identifier"),
+      locale: z.string().describe("Locale code (e.g., en, fr, de, en_US)"),
+    },
   },
   async ({ apiKey, assetId, locale }) => {
     const client = new LocoClient(apiKey);
@@ -157,14 +163,16 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "update_translation",
-  "Add or update a translation for an asset in a specific locale",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    assetId: z.string().describe("The asset identifier"),
-    locale: z.string().describe("Locale code (e.g., en, fr, de, en_US)"),
-    text: z.string().describe("The translation text (empty string marks as untranslated)"),
+    description: "Add or update a translation for an asset in a specific locale",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      assetId: z.string().describe("The asset identifier"),
+      locale: z.string().describe("Locale code (e.g., en, fr, de, en_US)"),
+      text: z.string().describe("The translation text (empty string marks as untranslated)"),
+    },
   },
   async ({ apiKey, assetId, locale, text }) => {
     const client = new LocoClient(apiKey);
@@ -177,11 +185,13 @@ server.tool(
 
 // ============ TAG TOOLS ============
 
-server.tool(
+server.registerTool(
   "list_tags",
-  "List all tags in the project",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
+    description: "List all tags in the project",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+    },
   },
   async ({ apiKey }) => {
     const client = new LocoClient(apiKey);
@@ -192,13 +202,15 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "tag_asset",
-  "Add a tag to an asset. Creates the tag if it doesn't exist.",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    assetId: z.string().describe("The asset identifier to tag"),
-    tag: z.string().describe("The tag name to add"),
+    description: "Add a tag to an asset. Creates the tag if it doesn't exist.",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      assetId: z.string().describe("The asset identifier to tag"),
+      tag: z.string().describe("The tag name to add"),
+    },
   },
   async ({ apiKey, assetId, tag }) => {
     const client = new LocoClient(apiKey);
@@ -209,13 +221,15 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "untag_asset",
-  "Remove a tag from an asset",
   {
-    apiKey: z.string().describe("Loco API key for the project"),
-    assetId: z.string().describe("The asset identifier"),
-    tag: z.string().describe("The tag name to remove"),
+    description: "Remove a tag from an asset",
+    inputSchema: {
+      apiKey: z.string().describe("Loco API key for the project"),
+      assetId: z.string().describe("The asset identifier"),
+      tag: z.string().describe("The tag name to remove"),
+    },
   },
   async ({ apiKey, assetId, tag }) => {
     const client = new LocoClient(apiKey);

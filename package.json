@@ -18,7 +18,7 @@
     "mcp",
     "loco"
   ],
-  "author": "",
+  "author": "Valentin Perignon",
   "license": "ISC",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.25.3",
