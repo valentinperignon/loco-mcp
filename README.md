@@ -1,0 +1,41 @@
+# loco-mcp
+
+An MCP server that lets AI assistants manage translations through the [Loco](https://localise.biz) API.
+
+## What it does
+
+This MCP provides tools to:
+- List, create, update, and delete translatable assets
+- Get and update translations across locales
+- Manage tags on your assets
+
+## Building
+
+```bash
+npm install
+npm run build
+```
+
+## Adding to opencode
+
+Add this to your `opencode.json` config:
+
+```json
+{
+  "mcp": {
+    "loco": {
+      "type": "local",
+      "command": "npx",
+      "agrs": ["/path/to/loco-mcp"]
+    }
+  }
+}
+```
+
+Replace `/path/to/loco-mcp` with the actual path where you cloned this repo.
+
+## Usage
+
+Once configured, your AI assistant will have access to tools like `list_assets`, `create_asset`, `get_translation`, etc. Each tool requires your Loco API key as a parameter.
+
+You can find your API key in your Loco project under **Developer Tools → API Keys (Full Access Key)**.

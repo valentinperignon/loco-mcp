@@ -14,10 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "keywords": [
-    "mcp",
-    "loco"
-  ],
+  "keywords": ["mcp", "loco"],
   "author": "Valentin Perignon",
   "license": "ISC",
   "dependencies": {
