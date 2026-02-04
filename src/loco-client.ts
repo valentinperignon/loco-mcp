@@ -1,47 +1,6 @@
+import {Asset, Translation, SuccessResponse, Locale} from "./types.js";
+
 const BASE_URL = "https://localise.biz/api";
-
-export interface Asset {
-  id: string;
-  type: string;
-  context?: string;
-  notes?: string;
-  printf?: string;
-  created: string;
-  modified: string;
-  plurals: number;
-  tags: string[];
-  aliases: Record<string, string>;
-  progress: {
-    translated: number;
-    untranslated: number;
-    flagged: number;
-  };
-}
-
-export interface Translation {
-  id: string;
-  translation: string;
-  translated: boolean;
-  status: string;
-  revision: number;
-  flagged: boolean;
-  modified: string;
-  author?: {
-    id: number;
-    name: string;
-    email: string;
-  };
-  locale: {
-    code: string;
-    name: string;
-  };
-  plurals?: string[];
-}
-
-export interface SuccessResponse {
-  status: number;
-  message: string;
-}
 
 export class LocoClient {
   constructor(
@@ -97,6 +56,15 @@ export class LocoClient {
       return text as T;
     }
   }
+
+  // region Locales methods
+
+  async getLocales(): Promise<Locale[]> {
+    const endpoint = "/locales";
+    return this.request<Locale[]>("GET", endpoint);
+  }
+
+  // endregion
 
   // Asset methods
   async listAssets(filter?: string): Promise<Asset[]> {

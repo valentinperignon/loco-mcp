@@ -245,7 +245,7 @@ server.registerTool(
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("loco-mcp server running on stdio");
+  console.error("loco-mcp server running on stdio…");
 }
 
 main().catch(console.error);
