@@ -57,7 +57,7 @@ export class LocoClient {
     }
   }
 
-  // region Locales methods
+  // region Locale methods
 
   async getLocales(): Promise<Locale[]> {
     const endpoint = "/locales";
@@ -66,7 +66,8 @@ export class LocoClient {
 
   // endregion
 
-  // Asset methods
+  // region Asset methods
+
   async listAssets(filter?: string): Promise<Asset[]> {
     const endpoint = filter ? `/assets?filter=${encodeURIComponent(filter)}` : "/assets";
     return this.request<Asset[]>("GET", endpoint);
@@ -109,7 +110,10 @@ export class LocoClient {
     );
   }
 
-  // Translation methods
+  // endregion
+
+  // region Translation methods
+
   async getTranslations(assetId: string): Promise<Translation[]> {
     return this.request<Translation[]>(
       "GET",
@@ -137,7 +141,10 @@ export class LocoClient {
     );
   }
 
-  // Tag methods
+  // endregion
+
+  // region Tag methods
+
   async listTags(): Promise<string[]> {
     return this.request<string[]>("GET", "/tags");
   }
@@ -157,4 +164,6 @@ export class LocoClient {
       `/assets/${encodeURIComponent(assetId)}/tags/${encodeURIComponent(tag)}.json`
     );
   }
+
+  // endregion
 }
