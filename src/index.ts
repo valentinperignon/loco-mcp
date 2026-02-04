@@ -31,7 +31,7 @@ server.registerTool(
 
 // endregion
 
-// ============ ASSET TOOLS ============
+// region Asset tools
 
 server.registerTool(
   "list_assets",
@@ -145,7 +145,9 @@ server.registerTool(
   }
 );
 
-// ============ TRANSLATION TOOLS ============
+// endregion
+
+// region Translation tools
 
 server.registerTool(
   "get_translations",
@@ -204,7 +206,9 @@ server.registerTool(
   }
 );
 
-// ============ TAG TOOLS ============
+// endregion
+
+// region Tag tools
 
 server.registerTool(
   "list_tags",
@@ -261,7 +265,7 @@ server.registerTool(
   }
 );
 
-// ============ START SERVER ============
+// endregion
 
 async function main() {
   const transport = new StdioServerTransport();
