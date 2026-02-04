@@ -7,7 +7,7 @@ import { LocoClient } from "./loco-client.js";
 
 const server = new McpServer({
   name: "loco-mcp",
-  version: "1.0.0",
+  version: "1.1.0",
 });
 
 // ============ ASSET TOOLS ============
