@@ -9,16 +9,9 @@ This MCP provides tools to:
 - Get and update translations across locales
 - Manage tags on your assets
 
-## Building
+## Use it with your favorite tool
 
-```bash
-npm install
-npm run build
-```
-
-## Adding to opencode
-
-Add this to your `opencode.json` config:
+### OpenCode
 
 ```json
 {
@@ -26,13 +19,11 @@ Add this to your `opencode.json` config:
     "loco": {
       "type": "local",
       "command": "npx",
-      "agrs": ["/path/to/loco-mcp"]
+      "agrs": ["-y", "loco-mcp"]
     }
   }
 }
 ```
-
-Replace `/path/to/loco-mcp` with the actual path where you cloned this repo.
 
 ## Usage
 
