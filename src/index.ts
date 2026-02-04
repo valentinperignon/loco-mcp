@@ -10,6 +10,27 @@ const server = new McpServer({
   version: "1.1.0",
 });
 
+// region Locale tools
+
+server.registerTool(
+    "list_locales",
+    {
+        description: "Lists all locales in the project. The source language will always be the first in the list",
+        inputSchema: {
+            apiKey: z.string().describe("Loco API key for the project")
+        }
+    },
+    async ({ apiKey }) => {
+        const client = new LocoClient(apiKey);
+        const result = await client.listLocales();
+        return {
+            content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+        }
+    }
+);
+
+// endregion
+
 // ============ ASSET TOOLS ============
 
 server.registerTool(

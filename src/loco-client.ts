@@ -59,7 +59,7 @@ export class LocoClient {
 
   // region Locale methods
 
-  async getLocales(): Promise<Locale[]> {
+  async listLocales(): Promise<Locale[]> {
     const endpoint = "/locales";
     return this.request<Locale[]>("GET", endpoint);
   }
