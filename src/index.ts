@@ -13,14 +13,14 @@ function loadApiKey(): string | undefined {
   
   if (apiKeyIndex !== -1 && args[apiKeyIndex + 1]) {
     const apiKey = args[apiKeyIndex + 1];
-    console.error(`Using API key from CLI argument`);
+    console.error("Using API key from CLI argument");
     return apiKey;
   }
 
   // Fallback to environment variable
   const envApiKey = process.env.LOCO_API_KEY;
   if (envApiKey) {
-    console.error(`Using API key from LOCO_API_KEY environment variable`);
+    console.error("Using API key from LOCO_API_KEY environment variable");
     return envApiKey;
   }
 
