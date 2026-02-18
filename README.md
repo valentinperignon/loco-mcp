@@ -31,6 +31,7 @@ You can provide your Loco API key in three ways (in order of precedence):
    ```powershell
    setx LOCO_API_KEY "your_key_here"
    ```
+   **Note:** After using `setx` on Windows, you need to restart your terminal/shell for the environment variable to take effect.
    
    On Windows (Command Prompt):
    ```cmd
@@ -43,10 +44,13 @@ You can provide your Loco API key in three ways (in order of precedence):
 
 You can find your API key in your Loco project under **Developer Tools → API Keys (Full Access Key)**.
 
+**Security Note:** When using configuration files (e.g., for MCP clients), prefer environment variables over hardcoded API keys to avoid accidentally committing sensitive credentials to version control.
+
 ## Use it with your favorite tool
 
 ### OpenCode
 
+**Option 1: Using CLI argument (API key in config)**
 ```json
 {
   "mcp": {
@@ -58,9 +62,9 @@ You can find your API key in your Loco project under **Developer Tools → API K
   }
 }
 ```
+**Warning:** This approach stores the API key in your configuration file, which may be committed to version control.
 
-Or using environment variable:
-
+**Option 2: Using environment variable (recommended)**
 ```json
 {
   "mcp": {
@@ -75,6 +79,7 @@ Or using environment variable:
   }
 }
 ```
+**Recommended:** This approach keeps the API key in the config but makes it easier to use environment variable substitution if your client supports it.
 
 ## Usage
 
