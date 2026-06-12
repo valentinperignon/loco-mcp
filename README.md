@@ -19,14 +19,32 @@ This MCP provides tools to:
     "loco": {
       "type": "local",
       "command": "npx",
-      "args": ["-y", "loco-mcp"]
+      "args": ["-y", "loco-mcp", "--api-key", "<your-api-key>"]
     }
   }
 }
 ```
 
-## Usage
+## API Key Configuration
 
-Once configured, your AI assistant will have access to tools like `list_assets`, `create_asset`, `get_translation`, etc. Each tool requires your Loco API key as a parameter.
+The API key can be provided in several ways (in priority order):
+
+1. **CLI argument** `--api-key <key>` — pass the key directly as a command-line argument
+2. **Environment variable** `LOCO_MCP_API_KEY` — set the key in your environment
+3. **File path** `--api-key-relative-path <path>` — read the key from a file (path relative to the working directory)
+4. **Tool parameter** — pass it as the `apiKey` parameter in each tool call (original behavior, still supported)
+
+### Examples
+
+```bash
+# 1. Direct CLI argument
+npx -y loco-mcp --api-key loco_abc123
+
+# 2. Environment variable
+LOCO_MCP_API_KEY=loco_abc123 npx -y loco-mcp
+
+# 3. Read from a file
+npx -y loco-mcp --api-key-relative-path .loco-api-key
+```
 
 You can find your API key in your Loco project under **Developer Tools → API Keys (Full Access Key)**.
