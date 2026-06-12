@@ -63,7 +63,7 @@ function getApiKey(paramApiKey?: string): string {
 
 const server = new McpServer({
   name: "loco-mcp",
-  version: "1.1.0",
+  version: "1.2.0",
 });
 
 // region Locale tools
