@@ -19,7 +19,7 @@ This MCP provides tools to:
     "loco": {
       "type": "local",
       "command": "npx",
-      "agrs": ["-y", "loco-mcp"]
+      "args": ["-y", "loco-mcp"]
     }
   }
 }
