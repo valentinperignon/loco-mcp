@@ -25,6 +25,7 @@ function resolveApiKey(): string | undefined {
   const { apiKey, apiKeyRelativePath } = parseArgs(process.argv.slice(2));
 
   // Priority: --api-key > LOCO_MCP_API_KEY env var > --api-key-relative-path
+  // Note: tool parameter (paramApiKey) takes highest priority in getApiKey()
   if (apiKey) {
     return apiKey;
   }
